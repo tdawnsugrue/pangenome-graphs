@@ -2,6 +2,13 @@
 
 Currently serving as a stream-of-consciousness/etc until I can get something more organised
 
+## TODO
+
+ [ ] visualise subgraph with bandage to check lengths/etc  
+ [ ] map with 1kg data  
+ [ ] sim with fastq instead of gam?  
+ [ ] move this to its own `notes.md` and cleanup the readme to be more useful
+
 ### (Attempted) Mapping to workshop graphs
 
 #### pggb
@@ -67,3 +74,43 @@ singularity run --bind $(pwd):/root odgi.sif
 
 Then extract as before. odgi complains *again* because a certain grch38 path (if not multiple) doesn't exist.
 
+Running with the .og file direct from hprc (vs building) results in the exact same error...  
+it may also be possible to do this with `vg chunk` but the wording of the documentation is opaque.
+
+May be able to extract specific regions with coordinates as opposed to a bed file.
+
+trying:  
+`odgi extract -i [hprcv1.1...og] -o [test.og] [threads] -P -E -r GRCh38#chr1:161505457-161678654 -L1000000`
+
+turns out the tag is **case sensitive**. My bad.
+The above code worked - converted it to gfa using `odgi view`. Not sure where to look for genome annotations... skipping over that for now & visualising via bandage.
+
+#### mapping (again)
+
+The code below was executed to do the following:
+ 1. generate an index for mapping
+ 2. simulate reads from the graph containing the fcgr genes
+ 3. map the simulated reads to the graph
+ 4. get statistics on mapping
+
+```
+vg autoindex --workflow giraffe -g fcgr-subgraph.gfa -p fcgr-giraffe
+vg sim -x fcgr-giraffe.giraffe.gbz -n 1000 -l 150 -a > fcgr.sim.gam
+vg giraffe -Z fcgr-giraffe.giraffe.gbz -m fcgr-giraffe.min -d fcgr-giraffe.dist  -G fcgr.sim.gam > sim_fcgr_mapped.gam
+vg stats -a sim_fcgr_mapped.gam
+```
+
+Results for simulated data were as follows:  
+| total alignments | total aligned | total perfect | total gapless |
+| --- | --- | --- | --- |
+| 1000 | 1000 | 747 | 991 |
+
+reads from the 1k genomes project were then pulled and converted to fastq using samtools; using hg00096 (each gene for fcgr2/3 was pulled separately). They were then run through `vg giraffe` as above (though -f was used in -G as we are working with fastq files.)  
+Alignment stats for these genes (and the simulated reads) are in `fcgr-h0096-mapped.csv`.
+
+```
+samtools view -b [file] > output.bam
+samtools fastq output.bam > output.fastq
+```
+
+FCGR2B was particularly in terms of number aligned; it sits on the edge of the graph so possibly why? Though the graph (should) be extended by 1MB in either direction.
