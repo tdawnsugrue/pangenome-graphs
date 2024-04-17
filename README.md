@@ -114,3 +114,5 @@ samtools fastq output.bam > output.fastq
 ```
 
 FCGR2B was particularly in terms of number aligned; it sits on the edge of the graph so possibly why? Though the graph (should) be extended by 1MB in either direction.
+
+I think (possibly) that odgi extract did *not* grab 1MB in either direction (based on bandage specifically; reports a length of ~250k bases). Side note - bandage is *old* (zip said last modified ~2016.)
