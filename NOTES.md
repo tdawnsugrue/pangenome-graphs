@@ -1,0 +1,3 @@
+# Project Notes
+
+TODO: Move notes here from [readme](README.md), so I can make it more useful...
