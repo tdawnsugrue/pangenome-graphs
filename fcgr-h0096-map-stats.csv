@@ -1,4 +1,4 @@
-Gene,Total Alignments,Total Aligned,Total Perfect,Total Gapless
+Gene,Total-Alignments,Total-Aligned,Total-Perfect,Total-Gapless
 simulated BAM,1000,1000,747,991
 FCGR2A,1252,1242,991,1240
 FCGR2B,1712,132,59,117
