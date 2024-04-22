@@ -1,4 +1,5 @@
 import re
+import sys
 
 regx = re.compile(r"Total ([a-zA-Z]+)[ \(\)a-zA-z]*: (\d+)")
 rel = ['alignments', 'aligned', 'perfect', 'gapless']
@@ -14,7 +15,15 @@ def extract_vals(lines: list):
     
     return vals
 
-if __name__ == "__main__":
+def single(line: str):
+    x = re.match(regx, line)
+    if x:
+        if x.group(1) in rel:
+            return x.group(2)
+    return None
+
+
+def testrun():
     f = open("vgstatex.txt")
     v = extract_vals(f.readlines())
     f.close()
@@ -23,3 +32,12 @@ if __name__ == "__main__":
         w = str(n) + "," if i != len(v)-1 else str(n)
         f.write(w)
     f.close()
+
+if __name__ == "__main__":
+    start = True
+    for line in sys.stdin:
+        val = single(line)
+        if val:
+            print(val if start else "," + val, end="")
+            start = False
+    print()

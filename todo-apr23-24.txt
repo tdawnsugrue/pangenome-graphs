@@ -1,0 +1,23 @@
+Name of stats file --> fcgr-aln-depth.csv
+headers: 1kgid,population,total_alignments,n_aligned,n_perfect,n_gapless,vgdepth_a,vgdepth_b
+
+overwrite/append prompt goes here...
+
+
+FILE
+id,popn,gene,chr,coords,url
+> _ > id-gene.fastq
+
+samtools view -b [url] [chr]:[coords] | samtools fastq > ../fastq/[i]-[popn]-[gene].fq
+
+(also keep list of filenames, sans dir)
+
+forea:
+	vg giraffe -g -m -d [...] -f fastq/[NAME].fq > mapped/[NAME].gam
+	vgstats [name].gam > tmp
+	vg depth [name].gam >> tmp
+	open temp, run reformat to get aln + take final line to get depth data
+	append to stats file
+
+(do an os.remove on any temp files; clean up after yourself)
+	
