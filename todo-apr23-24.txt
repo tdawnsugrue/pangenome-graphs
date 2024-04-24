@@ -1,5 +1,5 @@
 Name of stats file --> fcgr-aln-depth.csv
-headers: 1kgid,population,total_alignments,n_aligned,n_perfect,n_gapless,vgdepth_a,vgdepth_b
+headers: 1kgid,population,gene,total_alignments,n_aligned,n_perfect,n_gapless,vgdepth_a,vgdepth_b
 
 overwrite/append prompt goes here...
 

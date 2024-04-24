@@ -4,15 +4,23 @@ import sys
 regx = re.compile(r"Total ([a-zA-Z]+)[ \(\)a-zA-z]*: (\d+)")
 rel = ['alignments', 'aligned', 'perfect', 'gapless']
 
-vals = []
-def extract_vals(lines: list):
-    
+
+def extract_vals(lines):
+    vals = []
+    if type(lines) == str:
+        f = open(lines)
+        lines = [i.strip() for i in f.readlines()]
+        f.close()
+
     for line in lines:
         x = re.match(regx, line)
         if x:
             if x.group(1) in rel:
                 vals.append(x.group(2))
     
+    depth = lines[-1].split()
+    vals += depth
+
     return vals
 
 def single(line: str):

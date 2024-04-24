@@ -29,7 +29,7 @@ odgi stats -i *.smooth.final.og
 
 Note that genes other than DRB1 don't seem to have a  proper *.draw_multiqc.png output.
 
-#### mapping
+## Mapping
 
 After retrieving the 1k genomes files using samtools, the following were run to attempt mapping:
 ```
@@ -77,7 +77,7 @@ Then extract as before. odgi complains *again* because a certain grch38 path (if
 Running with the .og file direct from hprc (vs building) results in the exact same error...  
 it may also be possible to do this with `vg chunk` but the wording of the documentation is opaque.
 
-May be able to extract specific regions with coordinates as opposed to a bed file.
+May be able to extract specific regions with coordinates as op74,2.03775posed to a bed file.
 
 trying:  
 `odgi extract -i [hprcv1.1...og] -o [test.og] [threads] -P -E -r GRCh38#chr1:161505457-161678654 -L1000000`
@@ -129,4 +129,35 @@ vg depth -g [mapped gam file] fcgr-giraffe.giraffe.gbz
 
 ...which will output 2 numbers. Presumably the first is an estimation of the read depth; not sure of the second. The read depth for hg96 genes can be found in [the data folder](data/)
 
-NOW: doing the same for the following genes:
+NOW: doing the same for the following genes ( see [the relevant csv](data/fcgr3b-aln-data.csv) for results.)
+
+Alignments seem to be mostly fine. Depth numbers are a little wacky. I can't seem to find any documentation for what the outputs of `vg depth` are supposed to mean - is it max & min possible depth? Not entirely sure.
+
+---
+
+## Visualisation
+
+Most visualisation tools that exist are A.) made to work with specific types of graphs and B.) rather outdated (last update being 3 or more years ago.)
+
+3 Tools standout as still being in (seemingly) regular use.  
+
+1.) GraphViz  
+    - this is a general graphing tool; not designed with genome graphs in mind  
+    - hard to find information on how it's being used with pangenome graphs in particular. the vgtools suite  mentions it can be used but doesn't provide information beyond generating a `.dot` file for it.  
+2.) Bandage  
+    - Made for genome graphs; an older tool  
+        - can get a general idea of what an area looks like  
+    - according to gh repo; last update 2 years ago  
+    - Visualisations are not very useful for larger graphs (see [this example](img/fcgr-subgraph.png))  
+    - Easy to use GUI - can just drop a GFA file into it and then set params  
+3.) sequenceTubeMap  
+    - JS tool for visualising pangenome graphs; by vgteam  
+    - updated recently  
+    - finicky at getting to specific regions in the graph...  
+        - region is necessary to show. Can't just look at the whole thing (possibly because this breaks in-browser)  
+        - for some reason queries starting with GRCh38# don't work  
+    - I'm having issues getting this running. Could seemingly get it to work initially (using the gbz subgraph as both graph & haplotype + fcgr2a as read data) - but upon trying to change anything I get a popup message of `vg view failed`..  
+        - see the one working graph [here](img/seqtubegraph-fcgr2a-hg96-mapped.svg)  
+
+possibly relevant papers for visualisation specifically (talks about tools generically, not specific to graphs)  
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6876635/  
