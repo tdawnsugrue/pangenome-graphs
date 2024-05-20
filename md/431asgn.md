@@ -61,12 +61,25 @@ Overall, this paper contributed to the field by [demonstrating xyz; synthesizing
 
 Generating Clarifying Questions for Information Retrieval
 - Basic overview; What their research questions were
+    - Overview:
+        - discusses the usefulness of clarifications in information retrieval
+            - Main research questions were; investigating the usefulness of asking clarifying questions (done via user studies); and addressing the *challenges* of *generating* questions.
 	- How it relates to paper 1
 		- Same context of document expansion; also generating questions (though the context is for general search, not limited to audio)
 			- This is an alternative (or possibly... supplement?) To "list diversification" (which is the process of getting multiple contexts into top results (to hopefully better solve information needs w/in the first page because solves for multiple contexts))
 		- Also expands on it bc has a user study to show the effectiveness of this method [NOTE: probably move this to the "research contributions" subsection]
 - What they did; how they did it (and what their research was built on)
+    - (briefly intro both, and then jump into below)
+    - 2 main points:
+        - A: discussed the usefulness of clarification/clarifying questions in general; investigated via several user studies to determine utility.
+            - Study 1 determined that users reported appreciating the feature; do want to note this was a *very* small study; only 5 individuals lol... (they did a second one with 24)
+            - Study 2 large scale online experiment using Bing; 2m users 1 week; 48.57% increased "engagement" compared with previously found that providing clarifying questions improved ctr significantly; showing that AQ is something worth looking into
+        - B: Generated models for query generation
+            - rule-based slot-filling algorihm
+            - weakly supervised text generation algorithm
 - Contributions to the field
+    - [GOESHERE]
+    - this is particularly useful in contexts where e.g. query is complex, or on an interface where user is working with a small-screen/voice-only interface (i.e., the benefits of list diversification are limited as the user has much less space for a list of results)
 
 ## Paper 3
 
