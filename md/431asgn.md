@@ -1,4 +1,4 @@
-# Overleaf can suck my dick
+# asgn2
 
 NOTE: Approx 900 words to the page (depending on section spacing, and accounting somewhat for references/etc.) Expect to write approx. 3600 words, unless some fancy formatting is included
 
@@ -32,29 +32,30 @@ NOTE: Approx 900 words to the page (depending on section spacing, and accounting
     - reiterate the video archive thing
         - importance of oral archives; maybe also address why one can't just use text archive versions (retaining integrity? Rather than relying on 100% accuracy of STT)
             - *don't* take a defensive stance lol
-- An overview of what they did
-    - big-picture
-        - developed an asking questions model
-            - based on [extant tools go here]
-            - what it does, how it does it
-        - Whittled down questions using a semantic continuity model
-            - based on d2q-- (cite); whose purpose is [1 sentence].
-            - SC model determines what to keep from the AQ model (d2q-style stuff tends to hallucinate [cite]); Aims to keep questions relevant
-    - how they did it (broadly what technologies; add in math explanation if need to pad) [see above]
-- Their contribution to the field
-    - made a thing to more easily search video archives by providing 'questions' and timestamps where subject of q is a'd
-- briefly, some shortcomings
-    - anything addressed in future research section
+
+The first paper [being covered] sets out to develop a framework for information retrieval in video archives. More specifically, they aim to [solve the problem of/where] trawling through large amounts of video footage in order to find the answer to a specific query, by implementing an *Asking Questions* framework. [Overview on what this is; document expansion]. [This comes in two parts ]- Automatic Speech Recognition (ASR), and the Asking Questions framework itself. 
+
+[Brief description of ASR and how they did it, what its based on. NOTE this is not the main focus of this assignment; however it's necessary for context as the AQ model is dependent on accurate STT technology to generate relevant data].
+
+[Asking Questions Framework - what is an AQ framework? Why good? compare to QA framworks]. [A - AQ model; what this is built on, what they tested]. However, as mentioned in [[2]-(see section?),], such models are known to produce hallucinations. To help preserve the relevancy of generated questions, [authors] also implemented a Semantic Continuity (SC) model. This was achieved by building upon the [NN? thing] Sentence-BERT, with a training objective of [xyz]. [Brief overview on how training works?]. [In a nutshell, works by taking a context-question pair and calculating a distance. Based on (insert calculation). Lower distance = more relevant. Can then filter based on this value + a probability score].[They built 3 SC models, based on (training datasets go here)]. [How these SC models fit into the framework; evaluating relevance of questions in context? Pairs compared with a "ground truth" question to determine the effectiveness of the AQ models]. 
+
+[How they evaluated]. [SC by using "reference" and N-1 (N being?) irrelevant questions; determine accuracy based on if the ref question has the lowest distance compared to irrelevant qs]. [AQ then tested based on SC filters]. [Results]
+
+Overall, this paper contributed to the field by [demonstrating xyz; synthesizing THINGS and applying stuff to oral archives]. [Providing questions w/ associated timestamps while preserving the context of the original video (since not reliant on transcript?)]. [Musings on where this stuff may also apply]. [Maybe quickly note some shortcomings (foreshadowing lol)].
 
 ## Paper 2
 
 Generating Clarifying Questions for Information Retrieval
-- ababa
+- Basic overview; What their research questions were
+	- How it relates to paper 1
+- What they did; how they did it (and what their research was built on)
 
 ## Paper 3
 
-- doc2query
+- doc2query--
 (could also do doc2query--, which paper A is built on)
+
+[Relatedness - d2q-- was a major inspiration for the archive tool thing.]
 - what research questions did this paper have
     - NN-based *document* (not query) expansion?
         - note this is fairly early; pre-that ai boom c. 2021
