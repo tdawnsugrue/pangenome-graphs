@@ -2,6 +2,8 @@
 
 NOTE: Approx 900 words to the page (depending on section spacing, and accounting somewhat for references/etc.) Expect to write approx. 3600 words, unless some fancy formatting is included
 
+NOTE 2: May be beneficial for andrew to title subsubsections... "paper goals/research q;paper discussion;contributions to the field"
+
 ## Abstract
 
 - ~ 1-200 words summarising the introduction, and the contents of the paper
@@ -19,7 +21,19 @@ NOTE: Approx 900 words to the page (depending on section spacing, and accounting
 - Brief overview on the importance of serving informational needs
 - Specific database type/s
     - challenges that come with video archives
-        - harder to summarise; harder to parse unlike text-based
+        - harder to su- An overview of what they did
+    ​￼- big-picture
+        ​￼- developed an asking questions model
+            - based on [extant tools go here]
+            - what it does, how it does it
+        ​￼- Whittled down questions using a semantic continuity model
+            - based on d2q-- (cite); whose purpose is [1 sentence].
+            - SC model determines what to keep from the AQ model (d2q-style stuff tends to hallucinate [cite]); Aims to keep questions relevant
+    - how they did it (broadly what technologies; add in math explanation if need to pad) [see above]
+​￼- Their contribution to the field
+    - made a thing to more easily search video archives by providing 'questions' and timestamps where subject of q is a'd
+​￼- briefly, some shortcomings
+    - anything addressed in future research sectionmmarise; harder to parse unlike text-based
 - Brief intro on query generation
     - and how it can be used to assist in meeting users info needs
         - link prompting paper
@@ -48,7 +62,11 @@ Overall, this paper contributed to the field by [demonstrating xyz; synthesizing
 Generating Clarifying Questions for Information Retrieval
 - Basic overview; What their research questions were
 	- How it relates to paper 1
+		- Same context of document expansion; also generating questions (though the context is for general search, not limited to audio)
+			- This is an alternative (or possibly... supplement?) To "list diversification" (which is the process of getting multiple contexts into top results (to hopefully better solve information needs w/in the first page because solves for multiple contexts))
+		- Also expands on it bc has a user study to show the effectiveness of this method [NOTE: probably move this to the "research contributions" subsection]
 - What they did; how they did it (and what their research was built on)
+- Contributions to the field
 
 ## Paper 3
 
