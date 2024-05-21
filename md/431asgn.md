@@ -77,7 +77,12 @@ Generating Clarifying Questions for Information Retrieval
 				- found this generally produced appropriate questions
             - weakly supervised text generation algorithm
 	            - encodes query; with k aspects, (using an arbitrary ) then feeds into a decoder which __generates questions__. 
-	            - *weak supervision* in this case is the template-completion model discussed above.
+	            - *weak supervision* in this case is the templatePOSSIBLY: look into the SC model's effectiveness
+        - see if SC can be tweaked to get improved response. So basically we are either reducing garbage at one end, or the other
+        ​￼- Maybe also speed improvements for the model? Not relevant for archives specifically, but would be useful for open collections
+	        - Since filtering models (see d2q-- are often expensive @ indexing time...)
+	- ALSO ALSO could see how filtering eg in A & C affects query reformulation? Not sure on this one really... just an idea.
+    - ALSO POSSIBLY: option B-completion model discussed above.
 	            - Outputs of this are *noisy*. So implements a "Query Clarification Maximisation" model (reward-function-ish) to remove noise e.g. common training questions, etc.
 		            - Give a brief? (2-3 sentence) overview of how this works?
 	- Requires query reformulation data (lack of this is part of the reason why this corner of IR is not so well studied); in this case they used reformulation data from bing search query logs in a 1.5y period (US market)
@@ -109,7 +114,17 @@ doc2query--
 - what was done
     - Built doc2query--; which (basically) adds a filtering phase to the original doc2query (in turn built on top of T5)
 	    - Describe the 2 phases - note same [theoretical] model as [paper A].
-		    - Generates questions; not all may be relevant (this is discussed briefly only; ref. og d2q paper citations)
+		    - Generates questions; not all may be relevant (this is discussed briefly only; ref. og d2q paper citations)hat this experiment is investigating
+	- ALT: do a user study on the ￼￼actual￼￼ effectiveness of working with an Asking Questions model - want to see if this improves retrieval effectiveness in a "practical scenario". Paper a builds a nice tool but doesn't really do any quantitative "are user information needs being met" sort of study.
+​￼- how one would go about investigating
+    ​￼- This could be done by either (or both of) A: annotation study (like B; based on likely queries) where generated questions are ranked as relevant
+	    - Based on whether the question is related to the information need of their information query, AND whether the attached timestamp is relevant to both the generated question and info need.
+	    - Since multiple models are used, could do separate tests on multiple of these; which would mean you could assess the SC independently (e.g. if you did a separate study of the questions prior to filtering via SC; can compare the two.)
+	​￼- If done with a different collection (which is more frequently used; and/or more freely available so we can collect more data), could do a study similar to B to determine whether improves
+		- Difficult to do at scale for a number of reasons, since this isn't e.g. internet search CTR may not be particularly useful...
+​￼- what sort of results would be expected from this research
+	- Option A, we would expect to obtain a dataset reporting on the effectiveness of questions generated and kept by the model used in paper A (rather than "X% of questions were relevant based on our filtering model")
+	- Depending on the setup, we could then also identify weak points of the model (i.e. if it has problems, is it failing on a specific type of query?)
 		    - Filtering: runs gen'd questions through a relevance filter [INSERT R FN], with arbitrary threshold *t*. Questions w/ threshold < t are discarded as irrelevant
 - contribution to the field
 	- Showed that seq2seq results (which are shown to be useful) can be improved by implementing a filtering model
@@ -124,30 +139,32 @@ Possibly a brief couple of sentences on general areas of interest
 ### Experiment 1
 
 - what this experiment is investigating
-    - scalability/generalisation to other datasets?
-    - A: does the trained model work with video archives on other topics (eg?), [since the model is trained on a general podcast thing?]
-        - if not, do other training datasets work well? Can we alter how we fine-tune?
-    - (also potentially a user study to see whether this is practical;)
-        - so could test both trained models for paper A on different datasets
+	- ALT: do a user study on the *actual* effectiveness of working with an Asking Questions model - want to see if this improves retrieval effectiveness in a "practical scenario". Paper a builds a nice tool but doesn't really do any quantitative "are user information needs being met" sort of study.
 - how one would go about investigating
-    - based on filtering with the SC model? Is the SC model generalisable? [READ UP ON THIS]
-    - would need to test on other document collections
-        - possibly give one or 2 examples if possible
-    - using manual judgement on a subset would be nice. We're using AI to test other AI; having a good control would be useful
-        - if time-intensive to do; we're assuming unlimited budget and manpower here ;)
+    - This could be done by either (or both of) A: annotation study (like B; based on likely queries) where generated questions are ranked as relevant
+	    - Based on whether the question is related to the information need of their information query, AND whether the attached timestamp is relevant to both the generated question and info need.
+	    - Since multiple models are used, could do separate tests on multiple of these; which would mean you could assess the SC independently (e.g. if you did a separate study of the questions prior to filtering via SC; can compare the two.)
+	- If done with a different collection (which is more frequently used; and/or more freely available so we can collect more data), could do a study similar to B to determine whether improves
+		- Difficult to do at scale for a number of reasons, since this isn't e.g. internet search CTR may not be particularly useful...
 - what sort of results would be expected from this research
+	- Option A, we would expect to obtain a dataset reporting on the effectiveness of questions generated and kept by the model used in paper A (rather than "X% of questions were relevant based on our filtering model")
+	- Depending on the setup, we could then also identify weak points of the model (i.e. if it has problems, is it failing on a specific type of query?)
 
 ### Experiment 2
 
 - what this experiment is investigating
-    - POSSIBLY: look into the SC model's effectiveness
-        - see if SC can be tweaked to get improved response. So basically we are either reducing garbage at one end, or the other
-        - Maybe also speed improvements for the model? Not relevant for archives specifically, but would be useful for open collections
-	        - Since filtering models (see d2q-- are often expensive @ indexing time...)
-	- ALSO ALSO could see how filtering eg in A & C affects query reformulation? Not sure on this one really... just an idea.
-    - ALSO POSSIBLY: option B
+    - Problem with the collection accessibility; I think? USHMM is open-access (haven't tried) but the other one is limited to a small set of countries/institutions, so possibly not so good for a large-scale study (and also means that results can't be shared easy - problematic for e.g. replication)
+    - However this is also an OPPORTUNITY! If we work on another collection, it enables a portion of the previous experiment AND enables us to test how well the model generalises to other collections. (Whether at base, or if we want to do a little bit of tweaking to get it to work...)
 - how one would go about investigating
+	- Probably want to grab a similar (but different and open-access) collection of video; ideally also with transcriptions already. If not can try to use the ASR that paper A used.
+		- Also would need a preexisting search function (i,e. extant audience), this is unfortunately a limitation as not many such collections exist. But in an ideal scenario...
+	- Do a study on this; implement the question interface (or even just the document expansion?)
+		- How does the AQ model do with generating questions? What portion are kept by the SC model/s? If we incorporate this into the first experiment, do users find a noticable improvmeent
+			- Alternatively, not doing the user study means we wouldn't need a collection with preexisting searchability; makes this experiment somewhat easier to do (though more impractical to evaluate on a practical level).
 - what sort of results would be expected from this research
+	- Would expect to get info on [how well works for a different dataset.] Would then be able to use this as a jumping-off point for further research
+		- Tweaks to model? What kind of tweaks would work well? Either to get a generalised model (unlikely) or an idea of what kind of retraining is necessary to adapt the model to different collections.
+		- If we can do this on an open-source dataset, means we could get more easily accessible data (that's also relevant to the problem?) Meaning there's more resources available for any researchers wanting to continue research in this field.
 
 ## Conclusions
 
