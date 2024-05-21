@@ -42,12 +42,9 @@ NOTE 2: May be beneficial for andrew to title subsubsections... "paper goals/res
 
 ## Paper 1
 
-- What research questions did they set out
-    - reiterate the video archive thing
-        - importance of oral archives; maybe also address why one can't just use text archive versions (retaining integrity? Rather than relying on 100% accuracy of STT)
-            - *don't* take a defensive stance lol
 
-The first paper [being covered] sets out to develop a framework for information retrieval in video archives. More specifically, they aim to [solve the problem of/where] trawling through large amounts of video footage in order to find the answer to a specific query, by implementing an *Asking Questions* framework. [Overview on what this is; document expansion]. [This comes in two parts ]- Automatic Speech Recognition (ASR), and the Asking Questions framework itself. 
+
+The first paper [being covered] sets out to develop a framework for information retrieval in video archives. More specifically, they aim[/their research questions were] to [solve the problem of/where] trawling through large amounts of video footage in order to find the answer to a specific query, by implementing an *Asking Questions* framework. [Overview on what this is; document expansion]. [This comes in two parts ]- Automatic Speech Recognition (ASR), and the Asking Questions framework itself. 
 
 [Brief description of ASR and how they did it, what its based on. NOTE this is not the main focus of this assignment; however it's necessary for context as the AQ model is dependent on accurate STT technology to generate relevant data].
 
@@ -55,7 +52,7 @@ The first paper [being covered] sets out to develop a framework for information 
 
 [How they evaluated]. [SC by using "reference" and N-1 (N being?) irrelevant questions; determine accuracy based on if the ref question has the lowest distance compared to irrelevant qs]. [AQ then tested based on SC filters]. [Results]
 
-Overall, this paper contributed to the field by [demonstrating xyz; synthesizing THINGS and applying stuff to oral archives]. [Providing questions w/ associated timestamps while preserving the context of the original video (since not reliant on transcript?)]. [Musings on where this stuff may also apply]. [Maybe quickly note some shortcomings (foreshadowing lol)].
+Overall, this paper contributed to the field by [demonstrating xyz; synthesizing THINGS and applying stuff to oral archives]. [Providing questions - shortcomings ()w/ associated timestamps while preserving the context of the original video (since not reliant on transcript?)]. [Musings on where this stuff may also apply]. [Maybe quickly note some shortcomings (foreshadowing lol)].
 
 ## Paper 2
 
@@ -76,33 +73,53 @@ Generating Clarifying Questions for Information Retrieval
             - Study 2 large scale online experiment using Bing; 2m users 1 week; 48.57% increased "engagement" compared with previously found that providing clarifying questions improved ctr significantly; showing that AQ is something worth looking into
         - B: Generated models for query generation
             - rule-based slot-filling algorihm
+	            - Based on the realisation/assumption that most questions fit one of 4 templates; implemented a template completion model
+				- found this generally produced appropriate questions
             - weakly supervised text generation algorithm
+	            - encodes query; with k aspects, (using an arbitrary ) then feeds into a decoder which __generates questions__. 
+	            - *weak supervision* in this case is the template-completion model discussed above.
+	            - Outputs of this are *noisy*. So implements a "Query Clarification Maximisation" model (reward-function-ish) to remove noise e.g. common training questions, etc.
+		            - Give a brief? (2-3 sentence) overview of how this works?
+	- Requires query reformulation data (lack of this is part of the reason why this corner of IR is not so well studied); in this case they used reformulation data from bing search query logs in a 1.5y period (US market)
+	- Their conclusions
+		- Showed that this can be useful; still many areas for improvement
+			- Looking at the tables provided in this paper; clarifications were evaluated as majority "fair" though ~1/5-1/4 were "good"
 - Contributions to the field
-    - [GOESHERE]
+    - Another (possibly older?) Question/clarification generation model, based on query reformulation data, which produces satisfactory results
+	    - Were able to evaluate w/ human annotation; do user studies to find that this is actually useful.
     - this is particularly useful in contexts where e.g. query is complex, or on an interface where user is working with a small-screen/voice-only interface (i.e., the benefits of list diversification are limited as the user has much less space for a list of results)
+    - Have identified areas for further study
+	    - Based on the limitations of *this* study
 
 ## Paper 3
 
-- doc2query--
-(could also do doc2query--, which paper A is built on)
-
-[Relatedness - d2q-- was a major inspiration for the archive tool thing.]
+doc2query--
+- what this paper covers
+	- 1-2 sentences; building on top of seq2seq models which are used for document expansionwhat tool did they build, what technologies were used to develop it
 - what research questions did this paper have
-    - NN-based *document* (not query) expansion?
-        - note this is fairly early; pre-that ai boom c. 2021
-    - as an alternative to reranking
-        - reasonable? tradeoff of spd vs performance
+    - Addresses problems with seq2seq models when used for IR
+	    - Namely, hallucination and index inflation
+		- Seeks to solve this 
+	- Shows that filtering via a relevance model results in higher (+ faster) IR efficiency; built on top of doc2query [CITE and possibly briefly discuss what doc2query is]
 - how this relates to paper A
-    - it's the model that paper A is built on; adapted for video archive
-        - why good for video?
+    - This is relevant to paper A in that it was one of the major inspirations for that paper [CITE] - in fact, paper A builds on top of this concept
+	    - Both with a.) general topic of doc expansion via query generation, and b.) use of a seq2seq model to do it
+    - Possibly related to paper B?
+	    - Both use seq2seq; both implement some kind of noise reduction strategy.
 - what was done
-    - what tool did they build, what technologies were used to develop it
+    - Built doc2query--; which (basically) adds a filtering phase to the original doc2query (in turn built on top of T5)
+	    - Describe the 2 phases - note same [theoretical] model as [paper A].
+		    - Generates questions; not all may be relevant (this is discussed briefly only; ref. og d2q paper citations)
+		    - Filtering: runs gen'd questions through a relevance filter [INSERT R FN], with arbitrary threshold *t*. Questions w/ threshold < t are discarded as irrelevant
 - contribution to the field
-- shortcomings ()
+	- Showed that seq2seq results (which are shown to be useful) can be improved by implementing a filtering model
+		- This increases retrieval effectiveness AND reduces index size relative to unfiltered; both of which are good for [REASONS].
+		- Opens the field to further research since seq2seq are used throughout IR atm (see A, B)
 
 ## Future Research
 
 Possibly a brief couple of sentences on general areas of interest
+- Note some obvious shortcomings of the discussed papers
 
 ### Experiment 1
 
@@ -125,6 +142,9 @@ Possibly a brief couple of sentences on general areas of interest
 - what this experiment is investigating
     - POSSIBLY: look into the SC model's effectiveness
         - see if SC can be tweaked to get improved response. So basically we are either reducing garbage at one end, or the other
+        - Maybe also speed improvements for the model? Not relevant for archives specifically, but would be useful for open collections
+	        - Since filtering models (see d2q-- are often expensive @ indexing time...)
+	- ALSO ALSO could see how filtering eg in A & C affects query reformulation? Not sure on this one really... just an idea.
     - ALSO POSSIBLY: option B
 - how one would go about investigating
 - what sort of results would be expected from this research
