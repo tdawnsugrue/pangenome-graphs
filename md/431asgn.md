@@ -4,21 +4,21 @@ NOTE: Approx 900 words to the page (depending on section spacing, and accounting
 
 NOTE 2: May be beneficial for andrew to title subsubsections... "paper goals/research q;paper discussion;contributions to the field"
 
+NOTE 3: *Clarifying* questions useful bc "relevant" questions that were generated serve as the "documents/results" for paper A.
 ## Abstract
 
-- ~ 1-200 words summarising the introduction, and the contents of the paper
-    - The importance and challenges of oral history archives
-    - Ways in which to search through them
-    - Methods of increasing recall (related to video archives, and generally)
-        - re-ranking vs. document expansion via queries, why this can be useful
-        - something cliche on how neural networks can be useful
-    - This paper discusses...
-        - Including xyz research
-    - We then propose experiments (such as?) to [investigate abc], and determine def.
+- Document expansion in IR; particularly query generation and its use.
+
+Document expansion is a [thing in IR] that can [help retrieval efficiency] by [eg altering term frequency/etc]. One form of this is query generation, in which [models predict queries for a document based on context, and query log data]. Video archive collections [pose a unique problem for IR in that] - [needs to be transformed via eg ASR - additionally xyz]. In this [report/paper], we [discuss PAPERNAME], which [made a tool to generate questions for videos + relevant timestamps while preserving integrity of original content]. [Additionally/to back this], we also overview [paper b], which [demonstrates utility of *clarifying* questions in search/IR]. [Paper C] also discusses [some shortcomings of seq2seq models eg d2q], [and presents a tool to improve results of such models w/ denoising/semantic filters]. Finally, we outline two experiments to build on the contributions of these [papers], [evaluation into the practical benefits of AQ for video collections], and [extended use case of paper A usability].
 
 ## Introduction
 
 - Brief overview on the importance of serving informational needs
+
+Perhaps more important than [serving relevant documents] is [resolving informational needs]. [If doc big, may contain large amounts of irrelevant content that the user is not interested in], [which makes in-document search important in these cases]. Such is the case when searching collections of video footage, as [difficult to accurately skim - may lose context, etc.].
+
+[In paper], [authors addressed this issue; identifying these such challenges]. They also note that [in the case where information is sensitive/context more important, so retaining integrity is consequently important (reword this)]. To address this, they developed [a tool] which [generates questions associated w/ timestamp for context where this question is answered]. This [involves 2 things, ASR and the AQ model]. [The AQ model is based on d2q-- [cite]]
+
 - Specific database type/s
     - challenges that come with video archives
         - harder to su- An overview of what they did
@@ -153,7 +153,8 @@ Possibly a brief couple of sentences on general areas of interest
 ### Experiment 2
 
 - what this experiment is investigating
-    - Problem with the collection accessibility; I think? USHMM is open-access (haven't tried) but the other one is limited to a small set of countries/institutions, so possibly not so good for a large-scale study (and also means that results can't be shared easy - problematic for e.g. replication)
+    - Problem with the collection accessibility; I think? USHMM is open-access (haven't tried) but the other one is limited to a small set of countries/institutions, so possibly not so good for a large-scale study (and also means that results can't be shared easy - problematic for e.g. replication)- Conclusions about the papers + the field.
+	- I
     - However this is also an OPPORTUNITY! If we work on another collection, it enables a portion of the previous experiment AND enables us to test how well the model generalises to other collections. (Whether at base, or if we want to do a little bit of tweaking to get it to work...)
 - how one would go about investigating
 	- Probably want to grab a similar (but different and open-access) collection of video; ideally also with transcriptions already. If not can try to use the ASR that paper A used.
@@ -168,7 +169,7 @@ Possibly a brief couple of sentences on general areas of interest
 
 ## Conclusions
 
-- Conclusions about the papers + the field.
-- Identification of gaps in the field
-- Briefly, the proposed experiments
+In conclusion, looked at the utility of query generation and question answering as a form of [document expansion/search-timestamping-whatever], and its utility in [improving efficiency of IR]. In particular, [looked at case study where this could be applied as [point highlighting??] for video archives], [a topic made difficult by relative lack of data].
+
+Furthermore, we identified [points of interest for further study] - namely, [summary of experiment sections]. [Overall statement of how many avenues still to be studied in this area]; [these experiments may help pave the way for future work].
 
