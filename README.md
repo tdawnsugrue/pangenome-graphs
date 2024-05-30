@@ -79,6 +79,8 @@ it may also be possible to do this with `vg chunk` but the wording of the docume
 
 May be able to extract specific regions with coordinates as op74,2.03775posed to a bed file.
 
+### HOW TO EXTRACT SUBGRAPHS (sort of... see below)
+
 trying:  
 `odgi extract -i [hprcv1.1...og] -o [test.og] [threads] -P -E -r GRCh38#chr1:161505457-161678654 -L1000000`
 
@@ -145,11 +147,7 @@ Most visualisation tools that exist are A.) made to work with specific types of 
     - this is a general graphing tool; not designed with genome graphs in mind  
     - hard to find information on how it's being used with pangenome graphs in particular. the vgtools suite  mentions it can be used but doesn't provide information beyond generating a `.dot` file for it.  
 2.) Bandage  
-    - Made for genome graphs; an older tool  
-        - can get a general idea of what an area looks like  
-    - according to gh repo; last update 2 years ago  
-    - Visualisations are not very useful for larger graphs (see [this example](img/fcgr-subgraph.png))  
-    - Easy to use GUI - can just drop a GFA file into it and then set params  
+    - Made for genome graphs; an older tool  hprcv1.1...  
 3.) sequenceTubeMap  
     - JS tool for visualising pangenome graphs; by vgteam  
     - updated recently  
@@ -161,3 +159,23 @@ Most visualisation tools that exist are A.) made to work with specific types of 
 
 possibly relevant papers for visualisation specifically (talks about tools generically, not specific to graphs)  
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6876635/  
+
+
+---
+hprcv1.1...
+- extract the subgraph using `odgi extract`
+- convert to gfa using `odgi view` (or `vg view`) (not sure how to use the latter)
+
+
+**Then**
+- make a template file to pull out reads based on `get_fastqs.py` *NOTE: update this script to do base-level coverage on pack data (see `pack-depths.py`)
+- make some cool graphs
+
+#### x
+
+Original graph used is `hprc-v1.1-mc-grch38.full.og`, run through `odgi sort` (Hprc minigraph-cactus pangenome, in .og form)
+
+ran the following exact command/s:  
+(odgi run in the singularity container)  
+
+`odgi extract -i graphs/hprc-sorted-mc.og -o graphs/GENE315-fcgr.og
