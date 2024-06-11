@@ -25,10 +25,15 @@ if __name__ == "__main__":
     print("downloading set to", download, file=sys.stderr)
     prefixes = []
 
+    graph = graphs[input("""Which graph to map to?\n
+                      1\tfcgr-giraffe\tfcgr(old)\n
+                      2\tirgm-315\tirgm subgraph from GENE315 lab""")]
+
+
     file = open(sys.argv[1])
     for line in file.readlines():
         dat = [d.strip() for d in line.split(",")]
-        print(dat)
+        #print(dat)
         if dat[0] == "id" : continue # skip header line
 
         prefix = f"{dat[0]}-{dat[1]}-{dat[2]}"
@@ -39,10 +44,7 @@ if __name__ == "__main__":
             print(f"downloading {prefix}...", file=sys.stderr)
             get_bam(dat)
 
-        graph = graphs[input("""Which graph to map to?\n
-                      1\tfcgr-giraffe\tfcgr(old)\n
-                      2\tirgm-315\tirgm subgraph from GENE315 lab""")]
-
+        
         print(f"running vg tools on {prefix}", file=sys.stderr)
         os.system(f"vg giraffe -g graphs/{graph}.giraffe.gbz -d graphs/{graph}.dist -m graphs/{graph}.min -f fastq/{prefix}.fq > mapped/{prefix}-mapped.gam")
         os.system(f"vg stats -a mapped/{prefix}-mapped.gam > tmp.txt")

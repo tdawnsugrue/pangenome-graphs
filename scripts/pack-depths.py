@@ -5,7 +5,7 @@ import seaborn as sns
 coverages = pd.read_csv("data/packed-fcgr-depth-thing.tsv", delimiter="\t", header=None)
 coverages = coverages.rename(columns={0 : 'path-maybe', 1 : 'position', 2 : 'coverage'})
 
-grch = "GRCh38#chr1:161505240-161678751"
+#grch = "GRCh38#chr1:161505240-161678751"
 
 coverages = coverages[coverages['path-maybe']==grch]
 print(coverages.tail())
