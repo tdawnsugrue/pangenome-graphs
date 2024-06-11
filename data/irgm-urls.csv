@@ -1,0 +1,7 @@
+id,population,gene,chr,coords,url
+NA06984,CEU,irgm,5,150124000-150324000,https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/NA06984/alignment/NA06984.mapped.ILLUMINA.bwa.CEU.low_coverage.20120522.bam
+NA06986,CEU,irgm,5,150124000-150324000,https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/NA06986/alignment/NA06986.mapped.ILLUMINA.bwa.CEU.low_coverage.20130415.bam
+NA18526,CHB,irgm,5,150124000-150324000,https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/NA18526/alignment/NA18526.mapped.ILLUMINA.bwa.CHB.low_coverage.20130415.bam
+NA18528,CHB,irgm,5,150124000-150324000,https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/NA18528/alignment/NA18528.mapped.ILLUMINA.bwa.CHB.low_coverage.20130415.bam
+NA18486,YRI,irgm,5,150124000-150324000,https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/NA18486/alignment/NA18486.mapped.ILLUMINA.bwa.YRI.low_coverage.20120522.bam
+NA18499,YRI,irgm,5,150124000-150324000,https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/NA18499/alignment/NA18499.mapped.ILLUMINA.bwa.YRI.low_coverage.20130415.bam

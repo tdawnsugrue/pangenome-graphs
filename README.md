@@ -171,11 +171,18 @@ hprcv1.1...
 - make a template file to pull out reads based on `get_fastqs.py` *NOTE: update this script to do base-level coverage on pack data (see `pack-depths.py`)
 - make some cool graphs
 
-#### x
+#### IRGM test
 
-Original graph used is `hprc-v1.1-mc-grch38.full.og`, run through `odgi sort` (Hprc minigraph-cactus pangenome, in .og form)
+using `chr5.full.og` direct from the hprc resources to extract the IRGM region as specified in Mik's [GENE315 project](https://github.com/mikblack/GENE315-CNVlab/blob/master/GENE315-CNV_lab-week1.md).  
+Used the following command: `odgi extract -i chr5.full.og -o irgm-subgraph-315.og -P -E -r GRCh38#chr5:150124000-150324000`  
 
-ran the following exact command/s:  
-(odgi run in the singularity container)  
+Then made a list of some samples to grab based on known CN variants - see [PUT FILE LINK/s HERE](data/irgm-urls.csv).
 
-`odgi extract -i graphs/hprc-sorted-mc.og -o graphs/GENE315-fcgr.og
+| Sample/s (in order) | Population | [Copy number](https://github.com/mikblack/GENE315-CNVlab/blob/master/CNcalls.csv) |
+| --- | --- | --- |
+| NA06984 - 2 - CEU
+| NA06986 - 1 - CEU
+| NA18526 - 2 - CHB
+| NA18528 - 0 - CHB
+| NA18486 - 1 - YRI
+| NA18499 - 0 - YRI

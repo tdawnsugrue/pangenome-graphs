@@ -12,6 +12,8 @@ def get_bam(dat: list):
     prefix = f"{dat[0]}-{dat[1]}-{dat[2]}"
     os.system(f"samtools view -b {url} {dat[3]}:{dat[4]} | samtools fastq > fastq/{prefix}.fq")
 
+graphs = {"1" : "fcgr-giraffe", "2" : "irgm-315"}
+
 if __name__ == "__main__":
     checks()
 
@@ -37,10 +39,14 @@ if __name__ == "__main__":
             print(f"downloading {prefix}...", file=sys.stderr)
             get_bam(dat)
 
+        graph = graphs[input("""Which graph to map to?\n
+                      1\tfcgr-giraffe\tfcgr(old)\n
+                      2\tirgm-315\tirgm subgraph from GENE315 lab""")]
+
         print(f"running vg tools on {prefix}", file=sys.stderr)
-        os.system(f"vg giraffe -g graphs/fcgr-giraffe.giraffe.gbz -d graphs/fcgr-giraffe.dist -m graphs/fcgr-giraffe.min -f fastq/{prefix}.fq > mapped/{prefix}-mapped.gam")
+        os.system(f"vg giraffe -g graphs/{graph}.giraffe.gbz -d graphs/{graph}.dist -m graphs/{graph}.min -f fastq/{prefix}.fq > mapped/{prefix}-mapped.gam")
         os.system(f"vg stats -a mapped/{prefix}-mapped.gam > tmp.txt")
-        os.system(f"vg depth -g mapped/{prefix}-mapped.gam graphs/fcgr-giraffe.giraffe.gbz >> tmp.txt")
+        #os.system(f"vg depth -g mapped/{prefix}-mapped.gam graphs/fcgr-giraffe.giraffe.gbz >> tmp.txt")
         
         aln_stats = extract_vals("tmp.txt")
         x = f"{dat[0]},{dat[1]},{dat[2]}"
