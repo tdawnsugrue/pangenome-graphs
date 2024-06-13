@@ -188,3 +188,7 @@ Then made a list of some samples to grab based on known CN variants - see [PUT F
 | NA18499 - 0 - YRI
 
 (Kicking myself... some files on my other (DEAD) laptop... hopefully they can be saved if the battery behaves tomorrow)
+(it did not.)
+
+NOTE: extracted the graph for positions in chr5 150124000 - 150324000  
+    actual positions when mapped were 150123854 - 150324068 (i.e. slightly longer)
