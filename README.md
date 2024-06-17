@@ -191,4 +191,18 @@ Then made a list of some samples to grab based on known CN variants - see [PUT F
 (it did not.)
 
 NOTE: extracted the graph for positions in chr5 150124000 - 150324000  
-    actual positions when mapped were 150123854 - 150324068 (i.e. slightly longer)
+    actual positions when mapped were 150123854 - 150324068 (i.e. slightly longer)md/.obsidian
+
+150950736
+### Step-by-step read mapping
+
+1. Download relevant graph from the [hprc resources page](https://github.com/human-pangenomics/hpp_pangenome_resources)  
+    - this should be in odgi (`.og`) format. Recommended to grab 1 chromosome as opposed to the full graph as it's faster
+2. Run `odgi extract` with the c150950736orrect ranges; can pass these as arguments or as a BED file.  
+    - example: `odgi extract -i chr5.full.og -o irgm-wider-region.og -P -E -r GRCh38#chr5:150796521-150950736`
+3. Run `odgi view` to convert the extracted file into gfa format, then use `vg autoindex` to generate gbz and other graph [stuff].
+    - example: `odgi view -g -i irgm-wider-region.og > irgm-wider-region.gfa` followed by `vg autoindex --workflow
+4. Get an appropriately formatted csv file with your samples and regions of interest (see [this file](/data/fcgr3b-urls.csv)) as an example.
+5. Run `scripts/get_fastqs.py` from the base folder. (note this has some hardcoded values, may need to adjust as nessecary until I update this). This will produce a bunch of mapped gam files based on the reads you provided.
+6. Run `depth_from_gam.py` to get base-level depths
+7. Run `graph_depth_files.py` to get corresponding graphs; you may need to alter this file as of writing (17/6/24)

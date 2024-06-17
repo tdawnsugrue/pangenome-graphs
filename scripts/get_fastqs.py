@@ -6,13 +6,16 @@ def checks():
     if "data" not in os.listdir():
         print("data directory not found! Are you running this from the correct folder?", file=sys.stderr)
         exit()
+    if len(sys.argv) < 2:
+        print("error! Usage: python get_fastqs.py [URL-FILE]", file=sys.stderr)
+        exit()
 
 def get_bam(dat: list):
     url = dat[-1]
     prefix = f"{dat[0]}-{dat[1]}-{dat[2]}"
     os.system(f"samtools view -b {url} {dat[3]}:{dat[4]} | samtools fastq > fastq/{prefix}.fq")
 
-graphs = {"1" : "fcgr-giraffe", "2" : "irgm-315"}
+graphs = {"1" : "fcgr-giraffe", "2" : "irgm-315", "3" : "irgm-wider-region"}
 
 if __name__ == "__main__":
     checks()
@@ -27,7 +30,8 @@ if __name__ == "__main__":
 
     graph = graphs[input("""Which graph to map to?\n
                       1\tfcgr-giraffe\tfcgr(old)\n
-                      2\tirgm-315\tirgm subgraph from GENE315 lab""")]
+                      2\tirgm-315\tirgm subgraph from GENE315 lab
+                      3\tirgm-wider-region\t proper irgm region...""")]
 
 
     file = open(sys.argv[1])
