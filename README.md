@@ -206,3 +206,14 @@ NOTE: extracted the graph for positions in chr5 150124000 - 150324000
 5. Run `scripts/get_fastqs.py` from the base folder. (note this has some hardcoded values, may need to adjust as nessecary until I update this). This will produce a bunch of mapped gam files based on the reads you provided.
 6. Run `depth_from_gam.py` to get base-level depths
 7. Run `graph_depth_files.py` to get corresponding graphs; you may need to alter this file as of writing (17/6/24)
+
+
+### Jul 16 - odgi notes
+
+TODO: move paper notes here...
+
+also maybe? refer odgi viz in [readthedocs](https://odgi.readthedocs.io)
+
+also refer to `odgi bin`. Apparently viz only takes the *concept* of binning, however (as may be obvious from the fact it consists of a single, 1500+ line-long function...)
+
+ Note this mentions a software called `Pantograph` which supposedly does this interactively - this can be sort of seen on its site at [computomics](https://computomics.com/services/pangenomes.html). Pretty sure this is proprietary >:/
