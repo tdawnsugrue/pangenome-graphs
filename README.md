@@ -217,3 +217,37 @@ also maybe? refer odgi viz in [readthedocs](https://odgi.readthedocs.io)
 also refer to `odgi bin`. Apparently viz only takes the *concept* of binning, however (as may be obvious from the fact it consists of a single, 1500+ line-long function...)
 
  Note this mentions a software called `Pantograph` which supposedly does this interactively - this can be sort of seen on its site at [computomics](https://computomics.com/services/pangenomes.html). Pretty sure this is proprietary >:/
+
+ ### Jul 31 - ODGI viz notes
+
+    - you can specify path intervals *directly* in the source version of odgi - this clearly hasn't been included in the version/s they distribute (yet)
+    - 1. going to test whether the default version works for the hpgp examples:
+
+Odgi extract from chr5 - took 2min on lab computer (read: 3nr gen i7)
+
+Running odgi sort | odgi viz on the subgraph takes ~1.7s
+Running *without* doing sort first takes slightly shorter.
+
+Running on the *whole* chr5 takes approx 2min (realistically almost no one is going to do this but funny)
+
+The problem with running odgi like this is that we need to run odgi extract for each subgraph. Can we run odgi viz directly 
+
+HOWEVER we can run the following command (requires building from source)
+```
+odgi viz -i chr5.full.og -o irgm_region.png -s '#'-rGRCh38#chr5:150796521-150950736
+```
+...Unfortunately, this takes around 2min to run, and produces a graph that looks absolutely nasty.
+
+As such, it's probably not super feasible to implement something that allows you to look at different regions of the graph (at least not from a whole chromosome).
+
+> Note: may try making a docker image of this version of viz so other people (and I) can play around with it some more
+
+Other things to check:
+    - possibly run timings on a whole range of sizes? If we need to
+    - Changing binning options
+    - sorting (and filtering?) paths.
+        - See if there's any options for this in the source version
+        - See if there's anywhere in the code that may be modified to make this an option
+    - Changing binning options
+        - i.e. seeing smaller changes
+        - Pretty sure I located the function for this; see if I can re-enable (if there's a useful setting and they don't have it hardcoded.)
