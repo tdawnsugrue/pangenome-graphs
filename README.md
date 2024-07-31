@@ -248,6 +248,8 @@ Other things to check:
     - sorting (and filtering?) paths.
         - See if there's any options for this in the source version
         - See if there's anywhere in the code that may be modified to make this an option
+        - `--paths-to-dispay` is one option but requires you to *specify* paths, so not great for auto-filter
     - Changing binning options
         - i.e. seeing smaller changes
         - Pretty sure I located the function for this; see if I can re-enable (if there's a useful setting and they don't have it hardcoded.)
+        - test `-w[bp]` argument
