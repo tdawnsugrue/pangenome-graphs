@@ -253,3 +253,64 @@ Other things to check:
         - i.e. seeing smaller changes
         - Pretty sure I located the function for this; see if I can re-enable (if there's a useful setting and they don't have it hardcoded.)
         - test `-w[bp]` argument
+    - Look at IGV code & see what it's doing
+        - as an example of a responsive genome viewer
+        - how would we do this with something pangenomic
+            - especially if we map reads to it - maybe collapsing/expanding sections as necessary?
+
+---
+
+### Aug 2
+
+- Tested the bin width argument of odgi viz (provided with `-w[bp]`)
+    - lower values of `bp` result in a much longer image, but it seems to pick up smaller variation/more detail.
+    - note that along the bottom there are a number of small 'bumps' - do these represent smaller changes?
+    - **NOTE** running with bin_width = 1 creates a *very* long image, but (presumably) captures everything
+
+### Aug 6
+
+#### Notes on ODGI
+
+- `odgi sort` may have alternate options for sorting. Need to look into this and then play around with the subcommand and odgi viz to test this
+- "sgd" stands for Stochastic Gradient Descent.
+- they talk about sorting paths [here](https://odgi.readthedocs.io/en/latest/rst/tutorials/sort_layout.html). Presumably viz then displays them in the given optimised order. Means if we wanted to sort on the fly we'd want to pass the original graph through `odgi sort`.
+- so if we were to build a gui on top of the odgi subcommands, we'd have to implement multiple. Presumably would be better to run this directly rather than e.g. routing bash through python (if that makes sense.)  
+    - You *can* run C code through python so this should be doable, if that's the direction we want to go in.
+- note that odgi sort sorts the *nodes* in each path. It doesn't *reorder* paths [Based on this](https://odgi.readthedocs.io/en/latest/rst/tutorials/sort_layout.html)
+    - there is an interactive ***2D***  viewer, as seen at the bottom of the article above.
+    - While you can't sort the order of the paths with the sort subcommand, you can use different paths as a reference. Not sure what kind of effect this has (should probably test this...)
+
+What if we run with these options?
+
+```
+      [ Path Sorting Options ]
+        -L, --paths-min                   Sort paths by their lowest contained
+                                          node identifier.
+        -M, --paths-max                   Sort paths by their highest contained
+                                          node identifier.
+        -A, --paths-avg                   Sort paths by their average contained
+                                          node identifier.
+        -R, --paths-avg-rev               Sort paths in reverse by their average
+                                          contained node identifier.
+```
+
+So:
+
+`./bin/odgi sort -i irgm-region-chr5.og -o - -O -[LMAR] | ./bin/odgi viz -i - -o irgm_sort_[LMAR].png -s '#`  
+
+Results sort the paths - nice!  
+*note that apparently this is (probably) not deterministic
+
+
+#### Notes on IGV
+
+- while the *web* application is written in js (framework?), the desktop version of IGV is a java application. 
+- [source is available here](https://github.com/igvteam/igv/tree/main)
+- TODO also look at the web app
+
+#### !Important! TODO
+
+- talks are end of Aug, abstract for talk due ~mid-august (get exact date for this).
+- Need to have a 'narrative' in mind
+    - for the process of a writeup, do we want to apply what we've done to a particular example? (I.e. this has benefits e.g in [this region]... etc.)
+    - main motivation for this would be to make sure there's enough biochemistry in this biochem thesis...
