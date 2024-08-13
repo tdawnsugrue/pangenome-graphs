@@ -318,3 +318,15 @@ Results sort the paths - nice!
 ### Aug 13
 
 Wrote the bare bones of an app to run odgi under the hood and display graphs. Currently this requires a working version of odgi built from source (which for various reasons is not ideal), however you *can* run sort. Currently other options are a work in progress.
+
+#### How to run:
+
+You should have `Pillow` and `customtkinter` installed:
+```pip install Pillow customtkinter```
+
+You'll also need a version of odgi (preferably built from source) in the `bin` directory. Alternately, you can alter line 81 to run with just `odgi` instead of `.bin/odgi` (sorry.)
+
+Finally, you'll need a .og graph in the source directory of the repo. This works best if you're looking at a region - an entire chromosome is probably a bad idea.
+
+run the app from the source directory with the following command:
+```python scripts/odgi_app.py```
