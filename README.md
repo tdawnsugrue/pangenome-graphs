@@ -314,3 +314,7 @@ Results sort the paths - nice!
 - Need to have a 'narrative' in mind
     - for the process of a writeup, do we want to apply what we've done to a particular example? (I.e. this has benefits e.g in [this region]... etc.)
     - main motivation for this would be to make sure there's enough biochemistry in this biochem thesis...
+
+### Aug 13
+
+Wrote the bare bones of an app to run odgi under the hood and display graphs. Currently this requires a working version of odgi built from source (which for various reasons is not ideal), however you *can* run sort. Currently other options are a work in progress.
