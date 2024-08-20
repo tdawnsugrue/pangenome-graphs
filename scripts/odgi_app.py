@@ -9,6 +9,7 @@
 - display at different 'resolutions/bin-widths'
 """
 import os
+import subprocess
 from PIL import Image
 import customtkinter as ctk
 
@@ -16,6 +17,13 @@ WINDOW_SIZE = (1200, 576)
 
 
 class OptionMenu(ctk.CTkFrame):
+    # TO INCLUDE: bin width (bp), subregion
+    # bin width is easy and can just be passed straight to odgi viz
+    # for subregion we want to do one of the following:
+    '''
+    1. get the name of the GRCh path & coords available
+    '''
+
     # contains options --> for now -, bin width, and sort mode
     def __init__(self, master): # not sure why master
         super().__init__(master)
@@ -27,14 +35,24 @@ class OptionMenu(ctk.CTkFrame):
         self.graph.grid(row=0, column=1)
 
         ## odgi options
-        self.sort_label = ctk.CTkLabel(self, text="Sort Method")
-        self.sort_options = ctk.CTkOptionMenu(self, values=["","L","M","A","R"])
+        self.sort_section = ctk.CTkLabel(self, text="View Options:")
+        self.sort_label = ctk.CTkLabel(self, text="Sort")
+        self.sort_options = ctk.CTkOptionMenu(self, values=["L","M","A","R"])
+        
+        # filter options
+        self.filter_section = ctk.CTkLabel(self, text="Subgraph options")
+        self.path_label = ctk.CTkLabel(self, text="Path:")
+        self.path_options = ctk.CTkOptionMenu(self, values=[] )
 
-        self.sort_label.grid(row=1, column=0)
-        self.sort_options.grid(row=1, column=1)
+        self.sort_section.grid(row=1, column=0)
+        self.sort_label.grid(row=1, column=1)
+        self.sort_options.grid(row=1, column=2)
+        self.filter_section.grid(row=2, column=0)
+        self.path_label.grid(row=2, column=1)
+        self.path_options.grid(row=2, column=2)
 
         # button
-        self.btn = ctk.CTkButton(self, text="go", 
+        self.btn = ctk.CTkButton(self, text="Load Graph", 
                                  command=lambda:test_load(self.graph.get(), self.sort_options.get()))
         self.btn.grid(row=0, column=2)
 
@@ -85,6 +103,15 @@ def run_odgi(file, sort):
         widget = ctk.CTkImage(img, size=size)
         app.image_container.configure(require_redraw=True, image=widget)
 
+def get_graph_paths(file):
+    # runs odgi paths -L and returns a list of every path that odgi output
+    paths = subprocess.run(["./bin/odgi", "paths", "-L", "-i",f"{file}"])
+    if paths.returncode != 0:
+        print("An error occurred when getting paths for a graph. Most likely you supplied an invalid file.")
+        return []
+    p = paths.stdout.decode().split("\n")
+    print(p)
+    return []
 
 app.mainloop()
 
