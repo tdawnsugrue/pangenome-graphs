@@ -21,6 +21,8 @@ current_graph = ""
 pathlist_unstripped = []
 path_coords = {}
 coord_limit = [0, 0]
+# odgi_path = "./bin/odgi"
+odgi_path = "odgi"
 
 class OptionMenu(ctk.CTkFrame):
     # TO INCLUDE: bin width (bp), subregion
@@ -162,10 +164,10 @@ def reload_image(graph = None):
     if not graph: graph = current_graph
     print("graph val:", graph)
 
-    l = subprocess.run(["./bin/odgi","viz","-i",graph, "-o", "tmp.png", "-s", "#"])
+    l = subprocess.run([odgi_path,"viz","-i",graph, "-o", "tmp.png", "-s", "#"])
     if l.returncode != 0:
-        test = subprocess.run(["./bin/odgi", "sort", "-i", graph, "-o", "-", "-O", "|",
-            "./bin/odgi","viz","-i",graph, "-o", "tmp.png", "-s", "#"])
+        test = subprocess.run([odgi_path, "sort", "-i", graph, "-o", "-", "-O", "|",
+            odgi_path,"viz","-i",graph, "-o", "tmp.png", "-s", "#"])
         print("had to sort prior to load. Subsequent returncode:", test.returncode)
         print(test)
 
@@ -178,7 +180,7 @@ def reload_image(graph = None):
 
 def get_graph_paths():
     # runs odgi paths -L and returns a list of every path that odgi output
-    paths = subprocess.run(["./bin/odgi", "paths", "-L", "-i", current_graph], capture_output=True)
+    paths = subprocess.run([odgi_path, "paths", "-L", "-i", current_graph], capture_output=True)
     print("\n\n\n")
 
     if paths.returncode != 0:
@@ -229,7 +231,7 @@ def sort_filter(sort, coords):
         coords[1] -= graph_coords[0]
         coords[2] -= graph_coords[0]
         e = subprocess.run(
-            ["./bin/odgi", "extract", "-i", current_graph, "-o", "tmp.og", "-P", "-E", "-r", 
+            [odgi_path, "extract", "-i", current_graph, "-o", "tmp.og", "-P", "-E", "-r", 
              f"{coords[0]}:{graph_coords[0]}-{graph_coords[1]}:{coords[1]}-{coords[2]}"]
         )
         #print("PATH SUPPLIED:", f"{coords[0]}:{graph_coords[0]}-{graph_coords[1]}:{coords[1]}-{coords[2]}")
