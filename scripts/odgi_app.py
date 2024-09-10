@@ -95,7 +95,7 @@ class OptionMenu(ctk.CTkFrame):
             print("Error: coordinates invalid or out of bounds for the path specified.")
             return None
         
-        return (path, start_coord, end_coord)
+        return [path, start_coord, end_coord]
 
 
     def update_bounds(self, path):
@@ -128,8 +128,8 @@ class App(ctk.CTk):
 
         frame_size = (WINDOW_SIZE[0]-100, self.imgsize[1] * rescale)
 
-        img = ctk.CTkImage(Image.open("img/placeholder.jpg"), size=frame_size) 
-        self.image_container = ctk.CTkLabel(self, text="", image=img)
+        self.img = ctk.CTkImage(Image.open("img/placeholder.jpg"), size=frame_size) 
+        self.image_container = ctk.CTkLabel(self, text="", image=self.img)
         self.image_container.grid(row=1, column=0)
 
 app = App()
@@ -158,7 +158,9 @@ def load_graph(file: str):
 def reload_image(graph = None):
     if not graph_loaded : return
     # if graph supplied this will make current graph refer to local instead of global
+    print("graph is", bool(graph))
     if not graph: graph = current_graph
+    print("graph val:", graph)
 
     l = subprocess.run(["./bin/odgi","viz","-i",graph, "-o", "tmp.png", "-s", "#"])
     if l.returncode != 0:
@@ -170,8 +172,9 @@ def reload_image(graph = None):
     img = Image.open("tmp.png")
     size = get_frame_size(img)
 
+    # change to having a single image and configuring
     widget = ctk.CTkImage(img, size=size)
-    app.image_container.configure(require_redraw=True, image=widget)
+    app.img.configure(require_redraw=True, light_image=img)
 
 def get_graph_paths():
     # runs odgi paths -L and returns a list of every path that odgi output
@@ -206,29 +209,37 @@ def get_graph_paths():
 
 # app dot whatever dot configure (change ctkoptions)
 
-
+# Sort & filter based on the provided pathname and coordinates. Assumes valid values from prev function
+# coords = (PATHNAME, START, END)       sort = single letter code
 def sort_filter(sort, coords):
     
-
+    graph_coords = path_coords[coords[0]]
+    og_length = graph_coords[1] - graph_coords[0]
+    new_length = coords[2] - coords[1]
     start = time()
     # CALLING SORT OR FILTER SHOULD SET CURRENT GRAPH TO A TMP FILE - reload image gets called with tmp.og
     # filter before sort
     # sample for odgi extract:
     #       odgi extract -i file.og -o tmp.og -P -E -r [pathname]:[start]-[end]
     if coords:
-        # FIX THIS TO ACCOUNT FOR INDEX
         print("Warning: you're subsetting the graph - this might take a long time :)")
+        
+
+        # account for offset - prevents seg fault in odgi extract
+        coords[1] -= graph_coords[0]
+        coords[2] -= graph_coords[0]
         e = subprocess.run(
             ["./bin/odgi", "extract", "-i", current_graph, "-o", "tmp.og", "-P", "-E", "-r", 
-             f"{coords[0]}:{coords[1]}-{coords[2]}"]
+             f"{coords[0]}:{graph_coords[0]}-{graph_coords[1]}:{coords[1]}-{coords[2]}"]
         )
-        print("extracted with exitcode", e.returncode)
-
+        #print("PATH SUPPLIED:", f"{coords[0]}:{graph_coords[0]}-{graph_coords[1]}:{coords[1]}-{coords[2]}")
     
 
     end = time()
-    print(f"Took approx {start - end:.1f} seconds to extract & sort")
-    pass
+    print(f"Took approx {end - start:.1f} seconds to extract & sort") # ADD SIZE OF OG & NEW GRAPH 
+    print(f"Original graph length: {og_length}\nNew graph length: {new_length}")
+
+    reload_image("tmp.og")
 
 app.mainloop()
 
