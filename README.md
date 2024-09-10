@@ -198,7 +198,7 @@ NOTE: extracted the graph for positions in chr5 150124000 - 150324000
 
 1. Download relevant graph from the [hprc resources page](https://github.com/human-pangenomics/hpp_pangenome_resources)  
     - this should be in odgi (`.og`) format. Recommended to grab 1 chromosome as opposed to the full graph as it's faster
-2. Run `odgi extract` with the c150950736orrect ranges; can pass these as arguments or as a BED file.  
+2. Run `odgi extract` with the correct ranges; can pass these as arguments or as a BED file.  
     - example: `odgi extract -i chr5.full.og -o irgm-wider-region.og -P -E -r GRCh38#chr5:150796521-150950736`
 3. Run `odgi view` to convert the extracted file into gfa format, then use `vg autoindex` to generate gbz and other graph [stuff].
     - example: `odgi view -g -i irgm-wider-region.og > irgm-wider-region.gfa` followed by `vg autoindex --workflow
@@ -330,3 +330,21 @@ Finally, you'll need a .og graph in the source directory of the repo. This works
 
 run the app from the source directory with the following command:
 ```python scripts/odgi_app.py```
+
+### Sep 10
+
+...should probably be writing/updating more often...
+
+Path coords for grch38: 
+150796142
+150951030
+
+testing 150800000 - 150900000
+
+*HEY SO REMEMBER WHEN ODGI EXTRACT WASN'T WORKING? I FOUND OUT WHY*
+
+#### IMPORTANT
+
+`odgi extract` *appends coordinates* to the original pathnames, which is what causes the area if you try use odgi extract again...
+
+*and* if you use *absolute* coords you'll get a seg fault, you have to account for offset!
