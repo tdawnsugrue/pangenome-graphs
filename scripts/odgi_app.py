@@ -21,8 +21,8 @@ current_graph = ""
 pathlist_unstripped = []
 path_coords = {}
 coord_limit = [0, 0]
-# odgi_path = "./bin/odgi"
 odgi_path = "odgi"
+# odgi_path = "./bin/odgi"
 
 class OptionMenu(ctk.CTkFrame):
     # TO INCLUDE: bin width (bp), subregion
