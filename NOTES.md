@@ -349,6 +349,17 @@ testing 150800000 - 150900000
 
 *and* if you use *absolute* coords you'll get a seg fault, you have to account for offset!
 
+### Sep 11
+
+Back at it again to finish the extract part
+
+TODO AFTER:  
+- re-implement sorting
+- containerise
+- make the display look nicer
+- bin width options/etc.
+- lit review of SVs/regions absent in GRCh38? Or find some other way? Not sure?
+
 ### Sep 16
 
 Need to extract novel paths: following [Mik's thing](https://github.com/mikblack/hpgp-basics/blob/main/chr5-novel-regions.md)  
@@ -356,3 +367,31 @@ hpgp data (chroms and VCF): [here](https://github.com/human-pangenomics/hpp_pang
 other VCF from other data (get link later): [here](https://s3-us-west-2.amazonaws.com/human-pangenomics/index.html?prefix=publications/PANGENOME_2022/DeepVariant-1000GPcalls/)  
 missing regions paper: [CHECK EMAIL or intro]
 
+### Sep 17
+
+TODO:
+- [ ] extract novel regions (chr5 for now)
+- [ ] get population data for novel regions
+        - extract this info for quick 1kgp ID > Pop info referral
+- [ ] Characterise SNPs found *within* these novel regions (?)
+        - to see variation both across and within populations (?)
+        - also which population contributed most to variation, etc.
+
+
+**Alternate way to extract depth info after running `odgi depth`:**
+
+Refer [this script](scripts/novel-nodes/filter_depths_info.py). Takes the depth file and filters based on an arbitrary min haplotypes.
+
+Note for some reason `odgi depth` does not get the last ~10k nodes; I've added a check for this in the meantime but not sure why this happens...
+
+I also get 174, not 79... (fixed)
+
+the "full" depth from `odgi depth` is not 'complete' - there are gaps in nodes (e.g. nodes 2920-2961 are missing). Have to account for this...
+
+After fixing my code, 4 nodes are missing, from the tail end of the depth file.
+
+**The file containing sample info for the phase 3 release (~2500 idv) is:** /release/20130502/[...].ALL.panel
+
+[1000 genomes data](https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release)
+
+Extended version (used in kgpe) [here](https://github.com/stephenturner/kgp/blob/main/inst/extdata/20130606_g1k_3202_samples_ped_population.txt)
