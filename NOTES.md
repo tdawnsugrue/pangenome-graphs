@@ -395,3 +395,18 @@ After fixing my code, 4 nodes are missing, from the tail end of the depth file.
 [1000 genomes data](https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release)
 
 Extended version (used in kgpe) [here](https://github.com/stephenturner/kgp/blob/main/inst/extdata/20130606_g1k_3202_samples_ped_population.txt)
+
+### Sep 18
+
+- Grabbed population info for novel nodes - what do we want to do with them? 
+
+#### Things we could do:
+- Visualise which populations contribute to each node; (does this work with more than 1 individual)
+    - should probably do this in any case, (just not sure the ideal way)
+- Look for SNPs within the graph populations
+- Look for variation in these nodes from the 1kgp dataset <-- probably this
+
+What do:
+- extract region surrounding the node (how many bp?), using the top path (since this one isn't in the reference) [using node 4921090]
+
+- grab a novel node, extend by 1 either side ("-c1"), then do a 2D viz to look for SNPs? (can we automate this..?)
