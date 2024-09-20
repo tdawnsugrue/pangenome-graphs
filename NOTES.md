@@ -410,3 +410,8 @@ What do:
 - extract region surrounding the node (how many bp?), using the top path (since this one isn't in the reference) [using node 4921090]
 
 - grab a novel node, extend by 1 either side ("-c1"), then do a 2D viz to look for SNPs? (can we automate this..?)
+
+
+### Sep 20
+
+Added some more data stuff to the notebook for analysis. If we want to look at admixtures, we'll need to map to the graph or similar.
