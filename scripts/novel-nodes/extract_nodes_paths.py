@@ -25,7 +25,7 @@ for node in nodes:
     print(f"Doing node {node}")
     subprocess.run([odgi, "extract", "-i", chrom, "-n", node, 
                     "-t", threads, "-o", "tmp.og"])
-    paths = subprocess.run([odgi, "paths", "-i", "tmp.og", "-L"], capture_output=True).stdout
+    paths = subprocess.run([odgi, "paths", "-i", "tmp.og", "-L"], capture_output=True).stdout.decode().split("\n")
     paths = [p[:p.find("#")] for p in paths]
 
     f = open(f"{folder}{node}.txt", "w")

@@ -415,3 +415,7 @@ What do:
 ### Sep 20
 
 Added some more data stuff to the notebook for analysis. If we want to look at admixtures, we'll need to map to the graph or similar.
+
+### Sep 23
+
+Basically running the whole thing on every chromosome. This might take a while... (Do some writeup while waiting for things to finish)
