@@ -1,4 +1,4 @@
-import sys
+from sys import stderr
 import subprocess
 import os
 from time import time
@@ -26,21 +26,23 @@ for chrom in chromosomes[:]:
     paths.close()
 
     # then get node lengths (running odgi view and then filter based on length (1kbp))
-    print("oview")
+    print("Running view on chr", chrom, file=stderr)
     start = time
     x = subprocess.run([odgi, "view", "-i", f"{chroms_dir}chr{chrom}.full.og", "-g"],
                              capture_output=True).stdout
-    print("grep/awk")
     x = subprocess.run(["grep", "^S"], input=x, capture_output=True).stdout
     lengths = subprocess.run(["awk", "-v", "OFS=\t", r"{print($2,length($3))}"],
                               input=x, capture_output=True).stdout.decode().split("\n")
     
 
+    print("aand depth", file=stderr)
     # get depths for everything relative to ref
     x = subprocess.run([odgi, "depth", "-i", f"{chroms_dir}chr{chrom}.full.og", "-s", "paths.txt", "-d"], 
                        capture_output=True).stdout.decode().split("\n")
     
     # [node, len, node, depth, depth]
+
+    print("Filtering nodes", file=stderr)
     all_nodes = [(a + "\t" + b).split("\t") for a, b in zip(lengths, x[1:])]
     filt_nodes = []
     depth_zero = 0
