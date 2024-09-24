@@ -419,3 +419,9 @@ Added some more data stuff to the notebook for analysis. If we want to look at a
 ### Sep 23
 
 Basically running the whole thing on every chromosome. This might take a while... (Do some writeup while waiting for things to finish)
+
+### Sep 24
+
+- More updates to sections in dissertation.
+    - FILTERING: Is there any point in specifying an *upper* limit on no. haplotypes per node? It takes a fair amount of time to run these (assume maybe an hour per chrom? More for larger ones), so should probably pick this.
+- Building the pipeline to run on every chromosome to get all the data.

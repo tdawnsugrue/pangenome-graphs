@@ -1,5 +1,7 @@
 import sys
 
+# Filters a depth file based on the total number of haplotypes
+
 if len(sys.argv) < 3 or len(sys.argv) > 5:
     print("ERROR: invalid arguments.\nUsage: python filter_depths_info.py [DEPTH_FILE] [NODE_FILE]", file=sys.stderr)
 
