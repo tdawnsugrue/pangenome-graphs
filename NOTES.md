@@ -429,3 +429,13 @@ Basically running the whole thing on every chromosome. This might take a while..
 - Re-implemented sorting into the interface, and made it a little bit prettier. Timings are based on how long odgi takes to run, so can probably set up some tests based on that (and assume the interface takes ~the same amount of time.)
 
 - As of 2:45, mostly waiting on odgi stuff to run so I can continue work
+- grabbed the dockerfile from pangenome/odgi so I can make my own version
+
+#### TODO (@ home):
+
+- check on depths stuff; should be able to then combine and filter for each chromosome (and can follow up w/ data analysis by thurs)
+- Rebuild docker container @ home (Windows?)
+- Setup docker to work on web w/ documentation [probably this](https://www.docker.com/blog/docker-for-web-developers/)
+    - This should (hopefully) get it working on localhost
+- Get this working on gitlab
+    - either directly through docker, or have the frontend hosted using Flask..?
