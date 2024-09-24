@@ -425,3 +425,7 @@ Basically running the whole thing on every chromosome. This might take a while..
 - More updates to sections in dissertation.
     - FILTERING: Is there any point in specifying an *upper* limit on no. haplotypes per node? It takes a fair amount of time to run these (assume maybe an hour per chrom? More for larger ones), so should probably pick this.
 - Building the pipeline to run on every chromosome to get all the data.
+
+- Re-implemented sorting into the interface, and made it a little bit prettier. Timings are based on how long odgi takes to run, so can probably set up some tests based on that (and assume the interface takes ~the same amount of time.)
+
+- As of 2:45, mostly waiting on odgi stuff to run so I can continue work

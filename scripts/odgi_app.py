@@ -22,17 +22,11 @@ pathlist_unstripped = []
 path_coords = {}
 coord_limit = [0, 0]
 odgi_path = "odgi"
-# odgi_path = "./bin/odgi"
+odgi_path = "./bin/odgi"
 
+# Menu containing (currently all) Filtering options
+# Sort and coord-filter
 class OptionMenu(ctk.CTkFrame):
-    # TO INCLUDE: bin width (bp), subregion
-    # bin width is easy and can just be passed straight to odgi viz
-    # for subregion we want to do one of the following:
-    '''
-    1. get the name of the GRCh path & coords available
-    '''
-
-    # contains options --> for now -, bin width, and sort mode
     def __init__(self, master): # not sure why master
         super().__init__(master)
 
@@ -111,7 +105,8 @@ class OptionMenu(ctk.CTkFrame):
 
 
 
-
+# Main Class for app to run
+# contains image stuff
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -129,10 +124,14 @@ class App(ctk.CTk):
         rescale = (WINDOW_SIZE[0] - 100) / self.imgsize[0]
 
         frame_size = (WINDOW_SIZE[0]-100, self.imgsize[1] * rescale)
+        #self.image_container.grid(row=1, column=0)
+
+        self.img_holder = ctk.CTkScrollableFrame(self, WINDOW_SIZE[0] - 20, WINDOW_SIZE[1] - 100)
+        self.img_holder.grid(row=1, column=0)
 
         self.img = ctk.CTkImage(Image.open("img/placeholder.jpg"), size=frame_size) 
-        self.image_container = ctk.CTkLabel(self, text="", image=self.img)
-        self.image_container.grid(row=1, column=0)
+        self.image_container = ctk.CTkLabel(self.img_holder, text="", image=self.img)
+        self.image_container.grid(row=0, column=0)
 
 app = App()
 
@@ -218,6 +217,9 @@ def sort_filter(sort, coords):
     graph_coords = path_coords[coords[0]]
     og_length = graph_coords[1] - graph_coords[0]
     new_length = coords[2] - coords[1]
+
+    print(sort)
+
     start = time()
     # CALLING SORT OR FILTER SHOULD SET CURRENT GRAPH TO A TMP FILE - reload image gets called with tmp.og
     # filter before sort
@@ -234,6 +236,9 @@ def sort_filter(sort, coords):
             [odgi_path, "extract", "-i", current_graph, "-o", "tmp.og", "-P", "-E", "-r", 
              f"{coords[0]}:{graph_coords[0]}-{graph_coords[1]}:{coords[1]}-{coords[2]}"]
         )
+        
+        if sort != "Default":
+            x = subprocess.run([odgi_path, "sort", "-i", "tmp.og", "-o", "tmp.og", f"-{sort}" ])
         #print("PATH SUPPLIED:", f"{coords[0]}:{graph_coords[0]}-{graph_coords[1]}:{coords[1]}-{coords[2]}")
     
 
