@@ -1,15 +1,17 @@
 import sys
 import subprocess
+import os
 # usage - python extract_etc.py [filt.txt]
 
 odgi = "./bin/odgi"
-chrom = "chr5.full.og"
-threads = "4"
-folder = "nonref_files/chr5-1k-10-50/"
+#chrom = "chr5.full.og"
+threads = "8"
+folder = "graphs/chroms/"
+chromosomes = [i for i in range(1, 23)]
 # odgi = "odgi"
 
-if len(sys.argv) != 2:
-    print("Error - Usage: python extract_nodes_paths.py [NODES]")
+# if len(sys.argv) != 2:
+#     print("Error - Usage: python extract_nodes_paths.py [NODES]")
 
 # odgi extract -i [full chr] -n [node number] -o [out.og]
 # odgi paths -i [out.og] -L --> capture stdout and cutoff the end of the ids
@@ -19,15 +21,23 @@ if len(sys.argv) != 2:
 
 """
 
-nodes = [i.split()[0] for i in open(sys.argv[1]).readlines()]
+d = os.listdir("nonref_files")
 
-for node in nodes:
-    print(f"Doing node {node}")
-    subprocess.run([odgi, "extract", "-i", chrom, "-n", node, 
-                    "-t", threads, "-o", "tmp.og"])
-    paths = subprocess.run([odgi, "paths", "-i", "tmp.og", "-L"], capture_output=True).stdout.decode().split("\n")
-    paths = [p[:p.find("#")] for p in paths]
+for chrom in chromosomes:
+    nodes = [i.split()[0] for i in open(f"nonref_files/chr{chrom}-filt-1k-10-50.txt").readlines()]
+    ch_dir = "nonref_files/chr{chrom}-1k-10-50"
+    
+    if "chr{chrom}-1k-10-50.txt" not in d:
+        os.mkdir(ch_dir)
 
-    f = open(f"{folder}{node}.txt", "w")
-    for p in paths : f.write(p + "\n")
-    f.close()
+    
+    for node in nodes:
+        print(f"Doing node {node}")
+        subprocess.run([odgi, "extract", "-i", f"{folder}chr{chrom}.full.og", "-n", node, 
+                        "-t", threads, "-o", "tmp.og"])
+        paths = subprocess.run([odgi, "paths", "-i", "tmp.og", "-L"], capture_output=True).stdout.decode().split("\n")
+        paths = [p[:p.find("#")] for p in paths]
+
+        f = open(f"{ch_dir}{node}.txt", "w")
+        for p in paths : f.write(p + "\n")
+        f.close()
