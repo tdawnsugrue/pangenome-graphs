@@ -43,7 +43,7 @@ for chrom in chromosomes:
         depth = int(d[1])
         if depth >= min_haps and depth <= max_haps :
             print(node, d, file=sys.stderr)
-            to_write += f"{d[0]}\t{d[1]}\t{d[2]}\n"
+            to_write += f"{d[0]}\t{d[1]}\t{d[2]}\t{node[0]}\t{node[1]}\t{node[2]}\t{node[3]}\n"
 
     f.write(to_write)
     f.close()
