@@ -8,10 +8,14 @@ skiplist = [b + "chr5-1k-10-50/"]
 #files = [f for f in os.listdir("nonref_files") if f.endswith(".txt")]
 
 
-for d in dirs:
+for d in dirs[:]:
     if d in skiplist : continue
     prefix = d[:-1]
-    #os.system(f"mv {b}{prefix}*.txt {b}{d}")
-    files = [f for f in os.listdir(f"{b}{d}")]
-    for fl in files[:2]:
-        print(f"mv {fl} {fl[fl.find("10-50")+5:]}")
+    print("fixing",d)
+    try:
+        os.system(f"mv {prefix}*.txt {d}")
+    except:
+        pass
+    files = [f for f in os.listdir(f"{d}")]
+    for fl in files:
+        os.system(f"mv {d}{fl} {d}{fl[fl.find("10-50")+5:]}")

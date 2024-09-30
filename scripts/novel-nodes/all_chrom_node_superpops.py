@@ -18,10 +18,10 @@ chroms_node_data = {}
 
 
 # TODO: encapsulate forea chrom
-for c in chroms[:2]:
+for c in chroms[:]:
     node_dir = f"nonref_files/chr{c}-1k-10-50/"
     nodes = os.listdir(node_dir)
-    print(f"nodes:\n{nodes}\n")
+#    print(f"nodes:\n{nodes}\n")
     node_data = {}
     pop_counts = {}
 
@@ -46,7 +46,7 @@ for c in chroms[:2]:
 
 # convert data into list of superpops and their counts
     pop_df = pd.DataFrame.from_dict(pop_counts)
-    print(pop_df.head())
+#    print(pop_df.head())
     pop_df = pd.pivot_table(pop_df, columns="Superpopulation").reset_index().fillna(0)
     pop_df = pop_df.melt(id_vars="index")
     
