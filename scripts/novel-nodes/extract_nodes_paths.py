@@ -25,11 +25,12 @@ d = os.listdir("nonref_files")
 
 for chrom in chromosomes:
     nodes = [i.split()[0] for i in open(f"nonref_files/chr{chrom}-filt-1k-10-50.txt").readlines()]
-    ch_dir = "nonref_files/chr{chrom}-1k-10-50"
+    ch_dir = f"nonref_files/chr{chrom}-1k-10-50"
     
-    if "chr{chrom}-1k-10-50.txt" not in d:
+    try:
         os.mkdir(ch_dir)
-
+    except:
+        continue
     
     for node in nodes:
         print(f"Doing node {node}")
