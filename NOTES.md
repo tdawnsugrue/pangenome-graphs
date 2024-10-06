@@ -439,3 +439,14 @@ Basically running the whole thing on every chromosome. This might take a while..
     - This should (hopefully) get it working on localhost
 - Get this working on gitlab
     - either directly through docker, or have the frontend hosted using Flask..?
+
+
+### Oct 7
+
+This is going to cause merge issues :)
+
+- tail for gene length distribution long - cut to get a nicer figure? (ask)
+
+Todo -->
+
+- gene lengths graph (sorta) (fix calcs, print graph, get median and then 25/75 percentile)
