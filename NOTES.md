@@ -450,3 +450,16 @@ This is going to cause merge issues :)
 Todo -->
 
 - gene lengths graph (sorta) (fix calcs, print graph, get median and then 25/75 percentile)
+
+Median: 3609    Mean: 32409 25th Perc: 557
+75th Perc: 25297    95th Perc: 152024
+Max: 2,473,538
+
+Length of irgm.og: 159179
+Length of chr5.full.og: 549,588,408
+
+chr5 too big obviously (also looks like shit)
+
+Let's say for now --> take ~mean size, 95th percentile and 2 million (which will cover most, since the tail is absurdly long)
+
+Just taking random regions
