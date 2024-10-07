@@ -454,6 +454,7 @@ Todo -->
 Median: 3609    Mean: 32409 25th Perc: 557
 75th Perc: 25297    95th Perc: 152024
 Max: 2,473,538
+Min: -2,298,756 for some reason I can't fathom
 
 Length of irgm.og: 159179
 Length of chr5.full.og: 549,588,408

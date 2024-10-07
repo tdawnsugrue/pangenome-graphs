@@ -50,11 +50,12 @@ with open("data/gencode.v38.basic.annotation.gff3") as annots:
 
 print(f"Median: {np.median(gene_lengths)}\tMean: {np.mean(gene_lengths)}\t"+
       f"25: {np.percentile(gene_lengths, 25)}\t75: {np.percentile(gene_lengths, 75)}"+
-      f"\n95: {np.percentile(gene_lengths, 95)}\tMax: {max(gene_lengths)}")
+      f"\n95: {np.percentile(gene_lengths, 95)}\tMax: {max(gene_lengths)}\n",
+      f"Min: {min(gene_lengths)}")
 
 # this has a really long tail; set max as no more than 1e6
 fig = sns.kdeplot(x = gene_lengths).get_figure()
-# plt.show()
+plt.show()
 fig.savefig("img/gene_length_distributions.png", dpi=300)
 
 # get col

@@ -8,12 +8,13 @@
 
 # note: get what each flag does...? for methods..?
 # coords are zero (or possibly 1) based. "Early tests indicated extraction time dependent on initial graph size"
-# so just do something silly like 10-10000 since it doesnt really matter
+# since we want to get the worst possible case we're just discarding the extracted graph and then working with the og
+# because it's the "largest possible"
 
 # Pipeline is as follows:
 """
-odgi extract -i [graph] -o [tmp] -E -r GRCh#chr[chrom]:[arbirtrary]-[arb2]
-odgi sort
+odgi extract -i [graph] -o [tmp] -E -r GRCh#chr[chrom]:[min]-[max] -t16
+odgi sort -i [tmp]
 odgi viz
 """
 
@@ -49,4 +50,8 @@ for length in lengths:
         # run odgi stats
         stats = subprocess.run(["odgi", "stats", "-i", gname, "-S", "-t8"], capture_output=True).stdout.decode().split("\n")[1].split("\t")
 
-        random_graphs_data.append([gname, stats[0], stats[1]])
+        random_graphs_data.append("\t".join([gname, stats[0], stats[1]]))
+
+
+with open("rand_graphs_data.tsv", "w") as file:
+    file.write("\n".join(random_graphs_data))
