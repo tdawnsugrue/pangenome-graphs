@@ -44,14 +44,17 @@ for length in lengths:
         gname = f"graphs/random/rand-chr{chrom}-{length}-{start}.og"
 
         # we do -E to prevent "problems"
-        subprocess.run(["odgi", "extract", "-i", f"graphs/chroms/chr{chrom}.full.og", "-t8", "-E",
-                        "-r", f"GRCh38#chr{chrom}:{start}-{end}", "-o", gname])
+        xtract = subprocess.run(["odgi", "extract", "-i", f"graphs/chroms/chr{chrom}.full.og", "-t8", "-E",
+                        "-r", f"GRCh38#chr{chrom}:{start}-{end}", "-o", gname], capture_output=True)
         
+        print('Extract:', xtract.stdout.decode())
+        
+        # MOVING TO OWN FILE
         # run odgi stats
-        stats = subprocess.run(["odgi", "stats", "-i", gname, "-S", "-t8"], capture_output=True).stdout.decode().split("\n")[1].split("\t")
+#         stats = subprocess.run(["odgi", "stats", "-i", gname, "-S", "-t8"], capture_output=True).stdout.decode().split("\n")[1].split("\t")
 
-        random_graphs_data.append("\t".join([gname, stats[0], stats[1]]))
+#         random_graphs_data.append("\t".join([gname, stats[0], stats[1]]))
 
 
-with open("rand_graphs_data.tsv", "w") as file:
-    file.write("\n".join(random_graphs_data))
+# with open("rand_graphs_data.tsv", "w") as file:
+#     file.write("\n".join(random_graphs_data))
