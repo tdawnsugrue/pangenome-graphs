@@ -1,12 +1,3 @@
-#!/bin/sh
-
-rm data/rand_times_raw.txt
-touch data/rand_times_raw.txt
-
-for file in ./graphs/random/*
-do
-    echo "doing ${file}"
-    echo "${file}" >> data/rand_times_raw.txt
-    time -p sh -c 'odgi extract -i $file -o _ -E -t16 && odgi sort -i $file -L &&
-            odgi viz -i $file -o _ -s "#"' >> data/rand_times_raw.txt
-done
+odgi extract -i $1 -o tmp.og -E -t16 -r "GRCh38#chr$2:10-10000"
+odgi sort -i $1 -o tmp.og -L
+odgi viz -i tmp.og -o tmp.png -s "#"
