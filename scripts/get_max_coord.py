@@ -11,8 +11,12 @@ cdir = "graphs/chroms"
 chrom_graphs = os.listdir(cdir)
 
 # 1
+lengths = []
 
 for i in range(len(chrom_graphs))[:1]:
-    stats = subprocess.run(["odgi", "stats", "-i", cdir + "/" + chrom_graphs[i], "-S", "-t8"], capture_output=True).stdout.decode().split("\n")
-    print(stats)
-    pass
+    stats = subprocess.run(["odgi", "stats", "-i", cdir + "/" + chrom_graphs[i], "-S", "-t8"], capture_output=True).stdout.decode().split("\n")[1].split("\t")
+    lengths.append("\t".join([i, stats[0]]))
+    
+f = open("data/chroms_max_coords.tsv", "w")
+f.write("\n".join(lengths))
+f.close()
