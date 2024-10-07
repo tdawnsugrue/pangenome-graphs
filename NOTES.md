@@ -464,3 +464,16 @@ chr5 too big obviously (also looks like shit)
 Let's say for now --> take ~mean size, 95th percentile and 2 million (which will cover most, since the tail is absurdly long)
 
 Just taking random regions
+
+#### Oct 7 (episode 2)
+
+NOTE FOR GENNING RANDOM GRAPHS. Apparently `odgi extract` just doesn't want to play sometimes. I'm getting around this by running the script again until I get what I need...
+
+- stats for random graphs times
+    - run the time pipe
+    - clean up into a tsv
+    - do a graph of the data
+
+- pop data
+    - pick an 'interesting' node in chr5
+    - walk back/forward (I think forwards?) along chr5-depths.txt until find it
