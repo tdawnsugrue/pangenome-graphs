@@ -1,19 +1,4 @@
-# read in gff3 file
-# get length
-# add to a numpy array
-# get stats
-# make a graph
-
-
-
-# also when doing timings: get a file with gene name/rand, region (start + end coord or length), 
-#                                               and num nodes. Append system time to this
-# we want to run odgi extract, followed by odgi sort, followed by odgi viz
-# also do threading
-# something like:
-# time <(odgi extract blahblah & odgi sort blahblah)
-# then grab the "name" and append sys + real time to it
-# save this all into a single file.
+# reads in the gff3 annot file and collates gene lengths into a graph.
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -54,9 +39,14 @@ print(f"Median: {np.median(gene_lengths)}\tMean: {np.mean(gene_lengths)}\t"+
       f"Min: {min(gene_lengths)}")
 
 # this has a really long tail; set max as no more than 1e6
-fig = sns.kdeplot(x = gene_lengths).get_figure()
-plt.show()
-fig.savefig("img/gene_length_distributions.png", dpi=300)
+# fig = sns.histplot(x = gene_lengths).get_figure()
+
+# fig.savefig("img/gene_length_distributions_hist.png", dpi=300)
+
+fig = sns.histplot(x = [i for i in gene_lengths if i < 152024]).get_figure()
+
+fig.savefig("img/gene_length_distributions_hist_trunc.png", dpi=300)
+
 
 # get col
 # get length with end - start
