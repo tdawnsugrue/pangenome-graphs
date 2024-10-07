@@ -30,13 +30,13 @@ random_graphs_data = []
 lengths = [32500, 150000, 2000000]
 
 with open("data/chroms_max_coords.tsv") as file:
-    max_coords = [i[1] for i in file.read().split("\n") if len(i) > 1]
+    max_coords = [int(i.split("\t")[1]) for i in file.read().split("\n") if len(i) > 1]
 
 for length in lengths:
     for i in range(5):
         chrom = random.randint(1, 22)
 
-        start = random.randint(1, max_coords[chrom-1] - length - 1)
+        start = random.randint(1, int(max_coords[chrom-1]) - length - 1)
         end = start + length
 
         print(f"Extracting graph {i} of length {length}...")
