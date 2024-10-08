@@ -40,7 +40,7 @@ for graph in graphs:
     all_stats.append("\t".join([graph, length, *stats, time]))
     print(f"testing {graph}", file=stderr)
 
-with open("data/speed_stats.tsv", "w") as file:
+with open("data/speed_stats2.tsv", "w") as file:
     file.write("\n".join(all_stats) + "\n")
 
 print("done", file=stderr)

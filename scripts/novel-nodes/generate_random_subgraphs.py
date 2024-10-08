@@ -27,13 +27,13 @@ import subprocess
 # each line has id, length, nodes
 random_graphs_data = []
 
-lengths = [32500, 150000, 2000000]
+lengths = [ i for i in range(200000, 2000000, 100000)]
 
 with open("data/chroms_max_coords.tsv") as file:
     max_coords = [int(i.split("\t")[1]) for i in file.read().split("\n") if len(i) > 1]
 
 for length in lengths:
-    for i in range(5):
+    for i in range(10):
         chrom = random.randint(1, 22)
 
         start = random.randint(1, int(max_coords[chrom-1]) - length - 1)
