@@ -233,12 +233,12 @@ def sort_filter(sort, coords):
         coords[1] -= graph_coords[0]
         coords[2] -= graph_coords[0]
         e = subprocess.run(
-            [odgi_path, "extract", "-i", current_graph, "-o", "tmp.og", "-P", "-E", "-r", 
+            [odgi_path, "extract", "-i", current_graph, "-o", "tmp.og", "-P", "-E", "-r", "-t8" 
              f"{coords[0]}:{graph_coords[0]}-{graph_coords[1]}:{coords[1]}-{coords[2]}"]
         )
         
         if sort != "Default":
-            x = subprocess.run([odgi_path, "sort", "-i", "tmp.og", "-o", "tmp.og", f"-{sort}" ])
+            x = subprocess.run([odgi_path, "sort", "-i", "tmp.og", "-o", "tmp.og", f"-{sort}", "-t8" ])
         #print("PATH SUPPLIED:", f"{coords[0]}:{graph_coords[0]}-{graph_coords[1]}:{coords[1]}-{coords[2]}")
     
 
